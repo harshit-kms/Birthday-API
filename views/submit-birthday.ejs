@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthdays</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div class="card">
+        <h3>Birthday recorded successfully</h3>
+
+        <div class="nearest">
+            <h4>Nearest Upcoming Birthday: </h4>
+            <% if (nearestBirthday) { %>
+                <p>
+                    <div class="names">
+                    Name: <%= nearestBirthday.name %>
+                    <br>
+                    </div>
+                    Date Of Birth: <%= nearestBirthday.dob.toLocaleDateString() %>
+                </p>
+            <% } else { %>
+                <p>No upcoming birthdays found.</p>
+            <% } %>
+        </div>
+
+
+            <ul>
+                <% for(var i=0; i<birthdays.length; i++) { %>
+                    <div class="birthdays">
+
+                        <li>
+                            <div class="names">Name: <%= birthdays[i].name %><br></div>
+                            
+                            Date Of Birth: <%= birthdays[i].dob.toLocaleDateString() %>                            
+
+                            <form action="/birthday/change/<%= i %>" method="POST" enctype="application/x-www-form-urlencoded">
+                                <div class="change">
+                                    <input type="hidden" name="index" value="<%= i %>">
+                                    Change Birthdate: <input type ="date" name="newDob">
+                                    <button type="submit">Change</button>
+                                </div>
+                            </form>
+                            <form action="/birthday/delete/<%= i %>" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                            
+                        </li>
+                    </div>
+
+                <% } %>
+            </ul>
+    </div>
+
+    
+</body>
+</html>
